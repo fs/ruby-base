@@ -1,19 +1,24 @@
 version: v1.0
-name: Ruby
+name: ruby-base
+
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+
 blocks:
   - name: Setup
     task:
       jobs:
         - name: Setup
           commands:
-            - bin/setup
+            - bundle install
+            - cache store
+
   - name: Build
     task:
       jobs:
         - name: Build
           commands:
+            - sem-version ruby 2.6.5
             - bin/build
