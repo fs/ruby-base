@@ -17,6 +17,7 @@ fail_fast:
   cancel:
     when: 'true'
 
+global_job_config:
   prologue:
     commands:
       - checkout
