@@ -25,17 +25,15 @@ blocks:
             - bundle install ${BUNDLE_ARGS}
             - cache store
 
-  - name: Quality
+  - name: Build
     task:
-      prologue:
-        commands:
-          - bundle install ${BUNDLE_ARGS} --local
-
       jobs:
         - name: Quality
           commands:
+            - bundle install ${BUNDLE_ARGS} --local
             - bin/quality
 
         - name: Rspec
           commands:
+            - bundle install ${BUNDLE_ARGS} --local
             - bundle exec rspec
