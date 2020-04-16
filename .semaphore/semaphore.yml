@@ -31,5 +31,5 @@ blocks:
         - name: Build
           commands:
             - bundle install ${BUNDLE_ARGS} --local
-            - sem-version ruby 2.6.5
+            - sem-version ruby 2.5.0
             - bin/build
