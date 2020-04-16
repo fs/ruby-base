@@ -6,13 +6,23 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
+global_job_config:
+  env_vars:
+    - name: BUNDLE_ARGS
+      value: '--deployment --without development staging production --jobs 2'
+
+  prologue:
+    commands:
+      - checkout
+      - cache restore
+
 blocks:
   - name: Setup
     task:
       jobs:
         - name: Setup
           commands:
-            - bundle install
+            - bundle install ${BUNDLE_ARGS}
             - cache store
 
   - name: Build
