@@ -25,11 +25,17 @@ blocks:
             - bundle install ${BUNDLE_ARGS}
             - cache store
 
-  - name: Build
+  - name: Quality
     task:
       jobs:
-        - name: Build
+        - name: Quality
           commands:
             - bundle install ${BUNDLE_ARGS} --local
-            - sem-version ruby 2.5.0
-            - bin/build
+            - bin/quality
+
+  - name: Test
+      jobs:
+      - name: Rspec
+        commands:
+          - bundle install ${BUNDLE_ARGS} --local
+          - bundle exec rspec
