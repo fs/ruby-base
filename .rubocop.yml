@@ -5,8 +5,6 @@ AllCops:
   Exclude:
     - bin/**/*
 
-Rails:
-  Enabled: false
 
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
@@ -25,7 +23,7 @@ Style/SymbolArray:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Metrics/LineLength:
+Layout/LineLength:
   Description: 'Limit lines to 120 characters.'
   Max: 120
 
@@ -35,7 +33,7 @@ Layout/EndAlignment:
     - keyword
     - variable
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
   SupportedStyles:
     - with_first_parameter
