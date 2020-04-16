@@ -17,11 +17,6 @@ fail_fast:
   cancel:
     when: 'true'
 
-global_job_config:
-  env_vars:
-    - name: BUNDLE_ARGS
-      value: '--deployment --path vendor/bundle'
-
   prologue:
     commands:
       - checkout
@@ -33,7 +28,7 @@ blocks:
       jobs:
         - name: Setup
           commands:
-            - bundle install ${BUNDLE_ARGS}
+            - bundle install
             - cache store
 
   - name: Quality
@@ -41,7 +36,7 @@ blocks:
       jobs:
         - name: Quality
           commands:
-            - bundle install ${BUNDLE_ARGS}
+            - bundle install
             - bin/quality
 
   - name: Test
@@ -49,7 +44,7 @@ blocks:
       prologue:
         commands:
           - sem-version ruby 2.5.0
-          - bundle install ${BUNDLE_ARGS}
+          - bundle install
 
       jobs:
       - name: Specs
