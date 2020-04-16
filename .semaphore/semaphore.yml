@@ -6,10 +6,21 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
+execution_time_limit:
+  hours: 1
+
+auto_cancel:
+  queued:
+    when: 'true'
+
+fail_fast:
+  cancel:
+    when: 'true'
+
 global_job_config:
   env_vars:
     - name: BUNDLE_ARGS
-      value: '--deployment --without development staging production --jobs 2'
+      value: '--deployment --without development staging production --jobs 3'
 
   prologue:
     commands:
@@ -27,13 +38,16 @@ blocks:
 
   - name: Build
     task:
+      prologue:
+        commands:
+          - sem-version ruby 2.5.0
+          - bundle install ${BUNDLE_ARGS} --local
+
       jobs:
         - name: Quality
           commands:
-            - bundle install ${BUNDLE_ARGS} --local
             - bin/quality
 
-        - name: Rspec
+        - name: Tests
           commands:
-            - bundle install ${BUNDLE_ARGS} --local
             - bundle exec rspec
