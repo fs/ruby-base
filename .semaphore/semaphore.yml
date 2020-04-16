@@ -27,15 +27,15 @@ blocks:
 
   - name: Quality
     task:
+      prologue:
+        commands:
+          - bundle install ${BUNDLE_ARGS} --local
+
       jobs:
         - name: Quality
           commands:
-            - bundle install ${BUNDLE_ARGS} --local
             - bin/quality
 
-  - name: Test
-      jobs:
-      - name: Rspec
-        commands:
-          - bundle install ${BUNDLE_ARGS} --local
-          - bundle exec rspec
+        - name: Rspec
+          commands:
+            - bundle exec rspec
