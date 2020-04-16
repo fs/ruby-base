@@ -20,7 +20,7 @@ fail_fast:
 global_job_config:
   env_vars:
     - name: BUNDLE_ARGS
-      value: '--deployment --without development staging production --jobs 3'
+      value: '--deployment --path vendor/bundle'
 
   prologue:
     commands:
@@ -36,18 +36,22 @@ blocks:
             - bundle install ${BUNDLE_ARGS}
             - cache store
 
-  - name: Build
+  - name: Quality
+    task:
+      jobs:
+        - name: Quality
+          commands:
+            - bundle install ${BUNDLE_ARGS}
+            - bin/quality
+
+  - name: Test
     task:
       prologue:
         commands:
           - sem-version ruby 2.5.0
-          - bundle install ${BUNDLE_ARGS} --local
+          - bundle install ${BUNDLE_ARGS}
 
       jobs:
-        - name: Quality
-          commands:
-            - bin/quality
-
-        - name: Tests
-          commands:
-            - bundle exec rspec
+      - name: Specs
+        commands:
+          - bundle exec rspec
