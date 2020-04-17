@@ -1,4 +1,5 @@
 # Ruby base
+[![Build Status](https://flatstack.semaphoreci.com/badges/ruby-base.svg)](https://flatstack.semaphoreci.com/projects/ruby-base)
 
 ## Install
 

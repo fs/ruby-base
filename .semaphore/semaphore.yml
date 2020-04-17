@@ -50,4 +50,4 @@ blocks:
       jobs:
       - name: Specs
         commands:
-          - bundle exec rspec
+          - bin/tests
